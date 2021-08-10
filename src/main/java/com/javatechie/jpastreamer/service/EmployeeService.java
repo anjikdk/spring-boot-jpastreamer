@@ -2,6 +2,7 @@ package com.javatechie.jpastreamer.service;
 
 import com.javatechie.jpastreamer.entity.Employee;
 import com.javatechie.jpastreamer.entity.Employee$;
+import com.javatechie.jpastreamer.exception.DataNotFoundException;
 import com.javatechie.jpastreamer.repository.EmployeeRepository;
 import com.speedment.jpastreamer.application.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,11 @@ public class EmployeeService {
     public Employee minPaidEmp(){
         return  jpaStreamer.stream(Employee.class)
                 .min(Comparator.comparing(Employee::getSalary)).get();
+    }
+    
+    public Employee maxPaidEmp() throws Exception{
+        return  jpaStreamer.stream(Employee.class)
+                .max(Comparator.comparing(Employee::getSalary)).orElseThrow(() -> new DataNotFoundException("Data not found..."));
     }
 
     public List<Employee> getEmployeesByIds(List<Integer> ids){

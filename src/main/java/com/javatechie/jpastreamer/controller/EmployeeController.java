@@ -44,6 +44,11 @@ public class EmployeeController {
     public Employee getLessPaidEmployee(){
         return service.minPaidEmp();
     }
+    
+    @GetMapping("/max")
+    public Employee getMorePaidEmployee() throws Exception{
+        return service.maxPaidEmp();
+    }
 
     @PostMapping("/ids")
     public  List<Employee> getEmployeesByIds(@RequestBody List<Integer> ids){
